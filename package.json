@@ -1,0 +1,23 @@
+{
+  "name": "simple-username-lookup",
+  "version": "1.0.0",
+  "description": "This mock service is for in-person interview test.  NAMES.TXT is from http://www.gutenberg.org/files/3201/files/",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tpun/simple-username-lookup.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tpun/simple-username-lookup/issues"
+  },
+  "homepage": "https://github.com/tpun/simple-username-lookup#readme"
+}
