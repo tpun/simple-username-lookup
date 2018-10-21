@@ -1,6 +1,7 @@
-var http = require('http');
-var url = require('url');
 var fs = require('fs');
+var express = require('express');
+var app = express();
+
 
 const TEXTFILENAME = 'NAMES.TXT'
 function readUsernames(textFilename) {
@@ -19,16 +20,21 @@ function usernameAvailable(username) {
     return USERNAMES.indexOf(username) === -1;
 }
 
-http.createServer(function (req, res) {
-    var parsedUrl = url.parse(req.url, true);
-    var query = parsedUrl.query;
-    const lowerCaseUsername = query.username.toLowerCase()
+app.get('/lookup', (req, res) => {
+    const lowerCaseUsername = req.query.username.toLowerCase()
     const available = { username: lowerCaseUsername, available: usernameAvailable(lowerCaseUsername) };
-    res.writeHead(200, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify(available));
-}).listen(8080);
+    res.json(available);
+});
 
-
-console.log('Server running on port 8080 with ', USERNAMES.length, 'usernames');
-console.log('GET http://localhost:8080?username=USERNAME to check if given USERNAME is available.');
-console.log('Sample response: {"username":"tom","available":false}')
+app.get('/', (req, res) => {
+    res.send('Mock usernmae lookup service: /lookup?username=USERNAME');
+ });
+ 
+ var server = app.listen(8080, () => {
+    var host = server.address().address
+    var port = server.address().port
+    
+    console.log("Mock username lookup service running at http://%s:%s with %i usernames.", host, port, USERNAMES.length)
+    console.log('GET http://%s:%s/lookup?username=USERNAME to check if given USERNAME is available.', host, port);
+    console.log('Sample response: {"username":"tom","available":false}')
+ });
