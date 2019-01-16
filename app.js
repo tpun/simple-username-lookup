@@ -30,7 +30,8 @@ app.get('/', (req, res) => {
     res.send('Mock usernmae lookup service: /lookup?username=USERNAME');
  });
  
- var server = app.listen(8080, () => {
+ const PORT = process.env.PORT || 3000;
+ var server = app.listen(PORT, () => {
     var host = server.address().address
     var port = server.address().port
     
